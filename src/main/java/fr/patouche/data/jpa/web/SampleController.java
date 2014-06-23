@@ -17,11 +17,17 @@
 package fr.patouche.data.jpa.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import org.springframework.web.servlet.ModelAndView;
+
+import fr.patouche.data.jpa.domain.City;
 import fr.patouche.data.jpa.service.CityService;
 
 @Controller
@@ -36,4 +42,14 @@ public class SampleController {
 	public String helloWorld() {
 		return this.cityService.getCity("Bath", "UK").getName();
 	}
+	
+	@RequestMapping("/test")
+	@Transactional(readOnly = true)
+	public ModelAndView helloWorld(Pageable pageable) {
+		Page<City> cities = this.cityService.getCities(pageable);
+		ModelAndView mv = new ModelAndView("testView");
+        mv.addObject("cities", cities);
+		return mv;
+	}
+	
 }

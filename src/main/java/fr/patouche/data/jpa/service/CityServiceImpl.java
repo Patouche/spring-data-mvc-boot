@@ -76,4 +76,11 @@ class CityServiceImpl implements CityService {
 		Assert.notNull(city, "City must not be null");
 		return this.hotelRepository.findByCity(city, pageable);
 	}
+	
+	@Override
+	public Page<City> getCities(Pageable pageable) {
+		Assert.notNull(pageable, "Pageable must not be null");
+		return this.cityRepository.findAll(pageable);
+	}
+	
 }

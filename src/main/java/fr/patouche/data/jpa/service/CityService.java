@@ -29,5 +29,7 @@ public interface CityService {
 	City getCity(String name, String country);
 
 	Page<HotelSummary> getHotels(City city, Pageable pageable);
+	
+	Page<City> getCities(Pageable pageable);
 
 }
